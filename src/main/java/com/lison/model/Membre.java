@@ -9,11 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 @Table(name = "MEMBRE")
 public class Membre {
 
 	@Id
+	@Autowired(required=true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private int id;
@@ -33,8 +36,9 @@ public class Membre {
 	@Column(name = "VALIDATED")
 	private Integer compte_valide;
 
+	@Autowired(required=true)
 	@Column(name = "ROLE")
-	private String responsabilite;
+	private int responsabilite;
 
 	@Column(name = "CREATION_DATE")
 	private Date date_inscription;
@@ -86,11 +90,11 @@ public class Membre {
 		this.compte_valide = compte_valide;
 	}
 
-	public String getResponsabilite() {
+	public int getResponsabilite() {
 		return responsabilite;
 	}
 
-	public void setResponsabilite(String responsabilite) {
+	public void setResponsabilite(int responsabilite) {
 		this.responsabilite = responsabilite;
 	}
 

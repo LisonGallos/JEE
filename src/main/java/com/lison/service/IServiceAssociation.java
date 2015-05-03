@@ -4,8 +4,9 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.lison.model.Association;
+import com.lison.model.Performance;
 
 public interface IServiceAssociation {
 	
-	List<Association> rechercherAssociations() throws SQLException, ParseException ;
+	List<Association> findAll();
 }
