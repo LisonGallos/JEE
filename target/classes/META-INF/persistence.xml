@@ -8,11 +8,11 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
 		<class>com.lison.model.Association</class>
+		<class>com.lison.model.Membre</class>
 		<class>com.lison.model.Competition</class>
 		<class>com.lison.model.Performance</class>
-		<class>com.lison.model.Membre</class>
-		<class>com.lison.model.Role</class>
 		<class>com.lison.model.CompMembre</class>
+		<class>com.lison.model.Role</class>
 		
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

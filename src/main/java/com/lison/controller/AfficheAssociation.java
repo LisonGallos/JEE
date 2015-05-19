@@ -38,11 +38,11 @@ public class AfficheAssociation {
 		final List<Association> lListeAssociations = associationService.findAll();
 		pModel.addAttribute("listeAssociation", lListeAssociations);
 		
-		final List<Performance> lListePerformances = performanceService.findAll();
-		pModel.addAttribute("lListePerformance", lListePerformances);
-		
 		final List<Competition> lListecompetitions = competitionService.findAll();
 		pModel.addAttribute("lListecompetition", lListecompetitions);
+		
+		final List<Performance> lListePerformances = performanceService.findAll();
+		pModel.addAttribute("lListePerformance", lListePerformances);		
 		
 		
 		return "listeAssociation"+"lListePerformance"+"lListecompetition" ;
