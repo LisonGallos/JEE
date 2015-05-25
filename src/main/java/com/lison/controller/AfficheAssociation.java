@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,11 +18,16 @@ import com.lison.model.Competition;
 import com.lison.model.Performance;
 import com.lison.service.IPerformanceService;
 import com.lison.service.IServiceAssociation;
-import com.lison.service.ICompetitionService;
+import com.lison.service.ICompetitionService; 
 
 @Controller
 @RequestMapping(value="/afficheAssociation")
-public class AfficheAssociation {
+public class AfficheAssociation extends HttpServlet {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Autowired(required=true)
 	private IServiceAssociation associationService;

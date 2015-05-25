@@ -14,8 +14,15 @@ public class AssociationServiceImpl implements IServiceAssociation {
 	
 	@Autowired
 	private AssociationDaoImpl associationDao;
+	Association association = new Association();
+	
 
 	public List<Association> findAll() {
 		return associationDao.findAll();
+	}
+
+	public Association find(Object id) {
+		association = associationDao.find(id);
+		return association;
 	}
 }

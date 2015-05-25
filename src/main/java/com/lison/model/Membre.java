@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,10 @@ public class Membre {
 
 	@Column(name = "BIRTH_DATE")
 	private Date date_naissance;
+	
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_ASSO")
+	private Association association;
 
 	public int getID() {
 		return id;
@@ -113,4 +120,13 @@ public class Membre {
 	public void setDate_naissance(Date date_naissance) {
 		this.date_naissance = date_naissance;
 	}
+
+	public Association getAssociation() {
+		return association;
+	}
+
+	public void setAssociation(Association association) {
+		this.association = association;
+	}
+	
 }

@@ -14,7 +14,8 @@
 		<spring.version>3.2.8.RELEASE</spring.version>
 		<hibernate.version>4.3.7.Final</hibernate.version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
-		<dbcp.version>1.4</dbcp.version>
+		<dbcp.version>1.4</dbcp.version>		
+		<jstl.version>1.2</jstl.version>
 	</properties>
 
 	<dependencies>
@@ -38,7 +39,18 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<!-- Spring Security -->
 
@@ -103,6 +115,20 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		
+		<!-- jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>	
+			
 	</dependencies>
 	<build>
 		<finalName>lison_web_spring</finalName>
