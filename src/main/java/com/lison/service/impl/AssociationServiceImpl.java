@@ -13,16 +13,13 @@ import com.lison.service.IServiceAssociation;
 public class AssociationServiceImpl implements IServiceAssociation {
 	
 	@Autowired
-	private AssociationDaoImpl associationDao;
-	Association association = new Association();
-	
+	private AssociationDaoImpl associationDao;	
 
-	public List<Association> findAll() {
+	public List<Association> findAll(){
 		return associationDao.findAll();
 	}
 
-	public Association find(Object id) {
-		association = associationDao.find(id);
-		return association;
+	public Association find(Object id){
+		return associationDao.find(id);
 	}
 }

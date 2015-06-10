@@ -7,4 +7,21 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	<context:component-scan base-package="com.lison.dao.impl" />
 	<context:component-scan base-package="com.lison.service.impl" />
 	<context:component-scan base-package="com.lison.controller" />
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>database.properties</value>
+		</property>
+	</bean>
+	
+	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<property name="persistenceUnitName" value = "${persistenceUnitName}" />
+    	<property name="persitenceXmlLocation" value = "classpath:*persistence.xml" />
+    	
+    	<property name="javax.persistence.jdbc.url" value="${database.host}" />
+    	<property name="javax.persistence.jdbc.user" value="${database.user}" />
+		<property name="javax.persistence.jdbc.password" value="${database.password}" />
+	</bean>
+	
+	
 </beans>

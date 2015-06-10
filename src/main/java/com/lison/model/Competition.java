@@ -17,7 +17,7 @@ public class Competition {
 	@Autowired(required=true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
-	private int id;
+	private int ID;
 
 	@Column(name = "NAME")
 	private String nom;
@@ -25,35 +25,11 @@ public class Competition {
 	@Column(name = "POINT")
 	private int points;
 
-	//@ManyToMany
-	//private Collection<Membre> membres;
-
-/*
-	public Collection<Membre> setMembres() {
-		return membres;
-	}
-
-	public void setMembres(Collection<Membre> membres) {
-		this.membres = membres;
-	}
-	// @ManyToMany
-	// Ne pas oublier le mapped by et le nom de la classe avec laquelle il faut
-	// mapper
-	private Collection<Performance> performances;
-
-	public Collection<Performance> getPerformances() {
-		return performances;
-	}
-
-	public void setPerformances(Collection<Performance> performances) {
-		this.performances = performances;
-	}
-*/
-
+	
 	public int getID() {
-		return id;
+		return ID;
 	}
-
+	
 	public String getNom() {
 		return nom;
 	}

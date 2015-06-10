@@ -14,9 +14,26 @@ public class CompetitionServiceImpl implements ICompetitionService {
 
 	@Autowired
 	private ICompetitionDao competitionDao;
-	
+
 	public List<Competition> findAll() {
 		return competitionDao.findAll();
+	}
+
+	public void creerCompetition(final Competition competition) {
+		// Competition competition = new Competition();
+		//
+		// competition.setNom(nom);
+		// competition.setPoints(points);
+
+		competitionDao.creerCompetition(competition);
+	}
+
+	public Competition find(final Object id) {
+		return competitionDao.find(id);
+	}
+
+	public List<Competition> listeCompetitionASC() {
+		return competitionDao.listeCompetitionASC();
 	}
 
 }

@@ -12,4 +12,7 @@ public class AssociationDaoImpl extends AbstractDao<Association> implements IAss
 		super(Association.class);
 	}
 
+	public void creerAssociation(final Association pAssociation) {
+		this.persist(pAssociation);
+	}
 }

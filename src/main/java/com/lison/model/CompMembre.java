@@ -2,9 +2,12 @@ package com.lison.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,33 +21,46 @@ public class CompMembre {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private int ID;
+
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_MBR")
+	private Membre membre;
 	
 	@Autowired(required=true)
-	@Column(name = "ID_MBR")
-	private int id_membre;
-	
-	@Autowired(required=true)
-	@Column(name = "ID_COMP")
-	private int id_competition;
-	
+	@Column(name = "IDTMP")
+	private int id_tmp;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_COMP")
+	private Competition competition;
+
 	
 	public int getID() {
 		return ID;
 	}
 	
-	public int getId_membre() {
-		return id_membre;
+	public Membre getmembre() {
+		return membre;
 	}
 
-	public void setId_membre(int id_membre) {
-		this.id_membre = id_membre;
+	public void setmembre(Membre membre) {
+		this.membre = membre;
 	}
 	
-	public int getId_competition() {
-		return id_competition;
+	public int getId_tmp() {
+		return id_tmp;
 	}
 	
-	public void setId_competition(int id_competition) {
-		this.id_competition = id_competition;
+	public void setId_tmp(int id_tmp) {
+		this.id_tmp = id_tmp;
 	}
+	
+	public Competition getcompetition() {
+		return competition;
+	}
+	
+	public void setcompetition(Competition competition) {
+		this.competition = competition;
+	}
+	
 }

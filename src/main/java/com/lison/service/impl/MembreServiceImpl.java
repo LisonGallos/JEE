@@ -1,13 +1,14 @@
 package com.lison.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lison.dao.IMembreDao;
+import com.lison.dao.IRoleDao;
 import com.lison.model.Association;
+import com.lison.model.Competition;
 import com.lison.model.Membre;
 import com.lison.service.IMembreService;
 
@@ -15,36 +16,59 @@ import com.lison.service.IMembreService;
 public class MembreServiceImpl implements IMembreService {
 
 	@Autowired
-	private IMembreDao membreDao;	
+	private IMembreDao membreDao;
+
+	@Autowired
+	private IRoleDao roleDao;
 
 	Membre mmbre = new Membre();
-	
+
+	public void persist(final Membre membre) {
+		membreDao.persist(membre);
+	}
+
 	public List<Membre> findAll() {
 		return membreDao.findAll();
 	}
-	
-	public void creerMembre(String nom, String prenom, String email,
-			int responsabilite,  Date date_inscription, Date date_naissance) {
 
-		Membre membre = new Membre();
-		
-		membre.setNom(nom);
-		membre.setPrenom(prenom);
-		membre.setEmail(email);
-		membre.setPassword("pass");
-		membre.setCompte_valide(0);
-		membre.setResponsabilite(responsabilite);
-		membre.setDate_inscription(date_inscription);
-		membre.setDate_naissance(date_naissance);
-		
-		membreDao.persist(membre);
-		
+	public void creerMembre(final Membre pMembre) {
+		membreDao.creerMembre(pMembre);
 	}
-	
-	public Membre findMembre(int ID){
-		
-		mmbre = membreDao.find(ID);		
-		return mmbre;		
+
+	public Membre find(final Object id) {
+		return membreDao.find(id);
+	}
+
+	public List<Membre> membreNonValide() {
+		List<Membre> membreList = membreDao.findAll();
+
+		for (Membre membre : membreList) {
+			if (membre.getCompte_valide().getID() == 2) {
+				membreList.remove(membre.getID());
+			}
+		}
+		return membreList;
+	}
+
+	public void remove(final Object entityId) {
+		membreDao.remove(entityId);
+
+	}
+
+	public List<Membre> listeMembreValideDesc(final Membre Membre) {
+		return membreDao.listeMembreValideDesc(Membre);
+	}
+
+	public List<Membre> login(final String nom, final String password) {
+		return membreDao.login(nom, password);
+	}
+
+	public List<Membre> membreParRegionCp(final Competition competition, final Association association) {
+		return membreDao.membreParRegionCp(competition, association);
+	}
+
+	public List<Membre> membreParAsso(final Association association) {
+		return membreDao.membreParAsso(association);
 	}
 
 }

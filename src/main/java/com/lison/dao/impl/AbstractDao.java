@@ -19,12 +19,17 @@ import com.lison.dao.IAbstractDao;
  *            the entity type to be managed.
  */
 public abstract class AbstractDao<T> implements IAbstractDao<T> {
-	
+
 	/**
 	 * Entity manager factory.
 	 */
 	private EntityManagerFactory emfactory;
-	
+
+	/**
+	 * Entity manager.
+	 */
+	private EntityManager entityManager;
+
 	/**
 	 * The entity class.
 	 */
@@ -44,7 +49,10 @@ public abstract class AbstractDao<T> implements IAbstractDao<T> {
 	 * {@inheritDoc}
 	 */
 	public EntityManager getEntityManager() {
-		return this.emfactory.createEntityManager();
+		if (entityManager == null) {
+			return entityManager = this.emfactory.createEntityManager();
+		}
+		return entityManager;
 	}
 
 	/**
