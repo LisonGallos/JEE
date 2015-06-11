@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -117,9 +116,9 @@ public class Performance {
 	public void onPersist() {
 		this.date_performance = DateUtils.parseToDate(this.date_performance_string, DateUtils.DATE_DD_MM_YYYY_PATTERN);
 	}
-
-	@PreUpdate
-	public void onUpdate() {
-		this.date_performance = DateUtils.parseToDate(this.date_performance_string, DateUtils.DATE_DD_MM_YYYY_PATTERN);
-	}
+	//
+	// @PreUpdate
+	// public void onUpdate() {
+	// this.date_performance = DateUtils.parseToDate(this.date_performance_string, DateUtils.DATE_DD_MM_YYYY_PATTERN);
+	// }
 }

@@ -42,7 +42,7 @@ public class AssignReferentMbrController {
 
 		roleList = roleService.findAll();
 
-		ModelAndView modelAndView = new ModelAndView("AssigneReferentMbr");
+		ModelAndView modelAndView = new ModelAndView("AssigneReferentMbr", Constants.Membre.COMMAND, user);
 		modelAndView.addObject(Constants.Membre.MEMBRE, membreCourant);
 		modelAndView.addObject("roleList", roleList);
 
@@ -53,13 +53,25 @@ public class AssignReferentMbrController {
 	public ModelAndView AvalideMembre(@ModelAttribute(Constants.Membre.MEMBRE) final Membre pMembre) {
 
 		Role role = roleService.find(pMembre.getId_tmp());
-		if (membreCourant.getResponsabilite().getID() != role.getID()) {
-			membreCourant.setResponsabilite(role);
-			membreService.persist(membreCourant);
-		}
+		List<Membre> membreList = membreService.referentAsso(membreCourant);
 		ModelAndView modelAndView = new ModelAndView("AssigneReferent", Constants.Membre.COMMAND, user);
 
+		if (membreCourant.getResponsabilite().getID() != role.getID()) {
+			if (membreList != null) {
+
+				if (membreCourant.getResponsabilite().getID() == 3) {
+					membreCourant.setResponsabilite(role);
+					membreService.persist(membreCourant);
+				} else {
+					System.out.println("Un référent est déjà présent pour cette association");
+					modelAndView = new ModelAndView("AssigneReferentKO", Constants.Membre.COMMAND, user);
+
+				}
+			} else {
+				membreCourant.setResponsabilite(role);
+				membreService.persist(membreCourant);
+			}
+		}
 		return modelAndView;
 	}
-
 }

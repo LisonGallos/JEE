@@ -66,8 +66,8 @@ public class ValideMembreController {
 			membreCourant.setCompte_valide(valide);
 			membreCourant.setMessage(pMembre.getMessage());
 			membreService.persist(membreCourant);
-			// JavaMailController java = new JavaMailController();
-			// java.sendEmail(membreCourant);
+			JavaMailController java = new JavaMailController();
+			java.sendMail(membreCourant, "");
 		}
 		ModelAndView modelAndView = new ModelAndView("ListValideMembre", Constants.Membre.COMMAND, user);
 

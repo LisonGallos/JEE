@@ -18,4 +18,6 @@ public interface IMembreDao extends IAbstractDao<Membre> {
 
 	List<Membre> membreParAsso(Association association);
 
+	List<Membre> referentAsso(Membre membre);
+
 }

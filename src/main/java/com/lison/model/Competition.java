@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Competition {
 
 	@Id
-	@Autowired(required=true)
+	@Autowired(required = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private int ID;
@@ -25,24 +25,23 @@ public class Competition {
 	@Column(name = "POINT")
 	private int points;
 
-	
 	public int getID() {
 		return ID;
 	}
-	
+
 	public String getNom() {
 		return nom;
 	}
 
-	public void setNom(String nom) {
+	public void setNom(final String nom) {
 		this.nom = nom;
 	}
-	
+
 	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(final int points) {
 		this.points = points;
 	}
 

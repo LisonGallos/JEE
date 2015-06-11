@@ -28,4 +28,6 @@ public interface IMembreService {
 
 	List<Membre> membreParAsso(Association association);
 
+	List<Membre> referentAsso(Membre membre);
+
 }

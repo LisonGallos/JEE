@@ -55,15 +55,18 @@ public class AuthentificationController {
 				result.reject("nom", "Il faut renseginer un mot de passe");
 				modelAndView = new ModelAndView(Constants.Membre.AUTHENTIFICATION);
 			} else {
-				if (membrelist.size() == 1) {
+				if (membrelist != null) {
 					user = membreService.find(membrelist.get(0).getID());
-					modelAndView = new ModelAndView("Accueil", Constants.Membre.COMMAND, user);
+					if (user.getCompte_valide().getID() != 3) {
+						modelAndView = new ModelAndView("Accueil", Constants.Membre.COMMAND, user);
+					} else {
+						modelAndView = new ModelAndView(Constants.Membre.AUTHENTIFICATION);
+					}
 				} else {
-					modelAndView = new ModelAndView("Authentification");
+					modelAndView = new ModelAndView(Constants.Membre.AUTHENTIFICATION);
 				}
 			}
 		}
 		return modelAndView;
 	}
-
 }

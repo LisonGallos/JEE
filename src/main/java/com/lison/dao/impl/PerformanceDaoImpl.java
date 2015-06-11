@@ -28,7 +28,7 @@ public class PerformanceDaoImpl extends AbstractDao<Performance> implements IPer
 		hqlBuilder.append("from Performance pf ");
 		hqlBuilder.append("where pf.membre.association.region = :compMenbre and pf.points <> ' ' ");
 		hqlBuilder.append("and pf.competition.ID= :competition ");
-		hqlBuilder.append("order by pf.membre.nom, pf.points desc");
+		hqlBuilder.append("order by pf.points desc");
 
 		final TypedQuery<Performance> query1 = getEntityManager().createQuery(hqlBuilder.toString(), Performance.class);
 
@@ -49,6 +49,7 @@ public class PerformanceDaoImpl extends AbstractDao<Performance> implements IPer
 
 		hqlBuilder.append("from Performance pf ");
 		hqlBuilder.append("where pf.competition.ID = :competId and pf.points <> ' ' ");
+		hqlBuilder.append("order by pf.points desc");
 
 		final TypedQuery<Performance> query1 = getEntityManager().createQuery(hqlBuilder.toString(), Performance.class);
 

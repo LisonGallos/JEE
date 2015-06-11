@@ -29,22 +29,22 @@ public class MembreDaoImpl extends AbstractDao<Membre> implements IMembreDao {
 
 		if (membre.getResponsabilite().getID() == 3) {
 			hqlBuilder.append("from Membre mb ");
-			hqlBuilder.append("where (mb.compte_valide = 1 or mb.compte_valide = 3) ");
+			hqlBuilder.append("where mb.compte_valide <> 2 ");
 			hqlBuilder.append("and mb.association.ID = :idAsso ");
 			hqlBuilder.append("order by mb.date_inscription desc");
 
 			query1 = getEntityManager().createQuery(hqlBuilder.toString(), Membre.class);
+			query1.setParameter("idAsso", membre.getAssociation().getID());
 
 		} else {
 			if (membre.getResponsabilite().getID() == 4) {
 
 				hqlBuilder.append("from Membre mb ");
-				hqlBuilder.append("where mb.compte_valide = 1 ");
+				hqlBuilder.append("where mb.compte_valide <> 2 ");
 				hqlBuilder.append("order by mb.date_inscription desc");
 				query1 = getEntityManager().createQuery(hqlBuilder.toString(), Membre.class);
 			}
 		}
-		query1.setParameter("idAsso", membre.getAssociation().getID());
 		List<Membre> result = query1.getResultList();
 
 		if (result != null && !result.isEmpty()) {
@@ -78,6 +78,7 @@ public class MembreDaoImpl extends AbstractDao<Membre> implements IMembreDao {
 
 		hqlBuilder.append("from Membre mb ");
 		hqlBuilder.append("where mb.competition.ID = :competition and mb.association.region.ID = :association");
+		hqlBuilder.append("order by mb.association.nom");
 
 		final TypedQuery<Membre> query1 = getEntityManager().createQuery(hqlBuilder.toString(), Membre.class);
 
@@ -97,11 +98,33 @@ public class MembreDaoImpl extends AbstractDao<Membre> implements IMembreDao {
 
 		hqlBuilder.append("from Membre mb ");
 		hqlBuilder.append("where mb.association.ID = :association ");
+		hqlBuilder.append("and mb.compte_valide = 2 ");
+		hqlBuilder.append("and mb.responsabilite.ID <> 4 ");
 		hqlBuilder.append("order by mb.nom ");
 
 		final TypedQuery<Membre> query1 = getEntityManager().createQuery(hqlBuilder.toString(), Membre.class);
 
 		query1.setParameter("association", association.getID());
+		List<Membre> result = query1.getResultList();
+
+		if (result != null && !result.isEmpty()) {
+			System.out.println("liste membre desc OK");
+			return result;
+		}
+		return null;
+	}
+
+	public List<Membre> referentAsso(final Membre membre) {
+		final StringBuilder hqlBuilder = new StringBuilder();
+
+		hqlBuilder.append("from Membre mb ");
+		hqlBuilder.append("where mb.association.ID = :association ");
+		hqlBuilder.append("and mb.responsabilite.ID = 3 ");
+		hqlBuilder.append("order by mb.nom ");
+
+		final TypedQuery<Membre> query1 = getEntityManager().createQuery(hqlBuilder.toString(), Membre.class);
+
+		query1.setParameter("association", membre.getAssociation().getID());
 		List<Membre> result = query1.getResultList();
 
 		if (result != null && !result.isEmpty()) {

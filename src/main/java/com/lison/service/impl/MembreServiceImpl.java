@@ -71,4 +71,8 @@ public class MembreServiceImpl implements IMembreService {
 		return membreDao.membreParAsso(association);
 	}
 
+	public List<Membre> referentAsso(final Membre membre) {
+		return membreDao.referentAsso(membre);
+	}
+
 }

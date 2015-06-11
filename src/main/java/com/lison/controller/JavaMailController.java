@@ -1,11 +1,14 @@
 package com.lison.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -16,47 +19,53 @@ import com.lison.model.Membre;
 @Controller
 public class JavaMailController {
 
-	public void sendEmail(Membre membre){
-	      // Recipient's email ID needs to be mentioned.
-	      String to = membre.getEmail().toString();
+	public void sendMail(final Membre membre, final String comment) {
 
-	      // Sender's email ID needs to be mentioned
-	      String from = "lisongallos@gmail.com";
+		final String username = "sportcomptasso@gmail.com";
+		final String password = "admin411";
 
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 
-	      // Get system properties
-	      Properties properties = System.getProperties();
+		String message = "Bonjour, \n\n";
+		if (membre.getCompte_valide().getID() == 2) {
+			message += "Votre compte a été validé.\n";
+			message += "Votre mot de passe :" + membre.getPassword() + "\n\n";
+			message += "Merci";
+		} else {
+			if (membre.getCompte_valide().getID() == 3) {
+				message += "Votre compte n'a pas été validé.\n";
+				message += "En attente de validation, \n\n";
+				message += "Merci";
+			} else {
+				message += "Votre est en attente de validation.\n";
+				message += "Merci";
+			}
+		}
 
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
+		try {
+			Message msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress("sportcomptasso@gmail.com", " AdminSportCompAsso"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(membre.getEmail(), membre.getPrenom() + " " + membre.getNom()));
+			msg.setSubject("Sport - compétion : Demande d'inscription");
+			msg.setText(message);
+			Transport.send(msg);
 
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try{
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO,
-	                                  new InternetAddress(to));
-
-	         // Set Subject: header field
-	         message.setSubject("Votre compte a été validé !");
-
-	         // Now set the actual message
-	         message.setText("Votre mot de passe : "+ membre.getPassword().toString());
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully to "+membre.getEmail().toString());
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
+		} catch (AddressException e) {
+			System.out.println("exception1");
+		} catch (MessagingException e) {
+			System.out.println("exception2" + e.getMessage());
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("exception3");
+		}
 	}
 }

@@ -41,15 +41,9 @@ public class AssigneReferentController {
 		user = membreService.find(Integer.parseInt(pMembre));
 
 		List<Association> associationList = new ArrayList<Association>();
-		Association association = null;
-
 		if (user.getResponsabilite().getID() == 4) {
 			associationList = associationService.findAll();
-		} else if (user.getResponsabilite().getID() == 3) {
-			association = associationService.find(user.getAssociation().getID());
-			associationList.add(association);
 		}
-
 		Map<Integer, Association> associationList2 = new HashMap<Integer, Association>();
 		for (Association asso : associationList) {
 			associationList2.put(asso.getID(), asso);

@@ -11,15 +11,15 @@ import com.lison.service.IServiceAssociation;
 
 @Service("associationService")
 public class AssociationServiceImpl implements IServiceAssociation {
-	
-	@Autowired
-	private AssociationDaoImpl associationDao;	
 
-	public List<Association> findAll(){
+	@Autowired
+	private AssociationDaoImpl associationDao;
+
+	public List<Association> findAll() {
 		return associationDao.findAll();
 	}
 
-	public Association find(Object id){
+	public Association find(final Object id) {
 		return associationDao.find(id);
 	}
 }

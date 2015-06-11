@@ -26,13 +26,13 @@ public class ListValideMembreController {
 	@Autowired
 	private IServiceValide valideService;
 
-	private List<Membre> listeMembreValideDesc = new ArrayList<Membre>();
 	private Membre user = new Membre();
-	private List<Valide> listValide = new ArrayList<Valide>();
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView AfficheInscription(@RequestParam(value = Constants.Membre.MEMBRE) final String pMembre) {
 
+		List<Valide> listValide = new ArrayList<Valide>();
+		List<Membre> listeMembreValideDesc = new ArrayList<Membre>();
 		user = membreService.find(Integer.parseInt(pMembre));
 		listValide = valideService.findAll();
 		listeMembreValideDesc = membreService.listeMembreValideDesc(user);

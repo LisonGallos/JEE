@@ -84,6 +84,7 @@ public class ClassementCompetitionController {
 				performanceList = performanceService.membreRegionPerfCp(cm, competitionReturn);
 
 				modelAndView.addObject("Laregion", region);
+				modelAndView.addObject("competitionReturn", competitionReturn);
 				modelAndView.addObject("performanceList", performanceList);
 			}
 
